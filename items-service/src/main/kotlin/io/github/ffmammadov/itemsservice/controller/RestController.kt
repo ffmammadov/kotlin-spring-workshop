@@ -2,7 +2,6 @@ package io.github.ffmammadov.itemsservice.controller
 
 import io.github.ffmammadov.itemsservice.ItemService
 import io.github.ffmammadov.itemsservice.model.ItemDto
-import io.github.ffmammadov.itemsservice.repository.ItemsRepository
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -32,6 +31,15 @@ class RestController(private val service: ItemService) {
         return service.getItemById(id)
     }
 
+    @GetMapping("")
+    fun getItems(@RequestParam(required = false) name: String?): List<ItemDto> {
+        return if (name != null) {
+            listOf(service.getItemByName(name))
+        } else {
+            service.getItems()
+        }
+    }
+
     @DeleteMapping("/{id}")
     fun deleteItemById(@PathVariable id: Int) {
         service.deleteItemById(id)
@@ -39,6 +47,6 @@ class RestController(private val service: ItemService) {
 
     @PutMapping("/{id}")
     fun updateItemById(@PathVariable id: Int, @RequestBody dto: ItemDto): ItemDto {
-        return service.updateItemById(id, dto);
+        return service.updateItemById(id, dto)
     }
 }
