@@ -1,0 +1,29 @@
+### Invalid token returns 403
+GET http://localhost:8095/api/v1/auth/verify
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmdW5ueWJ1bm55IiwiZXhwIjoxNjc3NDUzNDMwLCJpYXQiOjE2NzczNjcwMzB9.BYPI_hY9oPjOuWBtl46ILM95CVqEo5NjQo-QQ4FknXEMIlED77dyjYUVLGyEIBB5JDJdq37MOajmhxU6jKCAYA
+
+### Valid Token returns 200
+GET http://localhost:8095/api/v1/auth/verify
+Authorization: {token}
+
+### Creates user in DB
+POST http://localhost:8095/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "password"
+}
+
+<> 2023-02-27T201245.200.json
+
+### Returns JWT token for existing user
+POST http://localhost:8095/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "password"
+}
+
+<> 2023-02-27T201251.200.json
