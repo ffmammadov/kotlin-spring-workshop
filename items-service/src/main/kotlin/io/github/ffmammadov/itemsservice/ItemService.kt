@@ -37,4 +37,24 @@ class ItemService(private val repository: ItemsRepository) {
         return saved.run { ItemDto(name, price, this.id, available, createdAt, updatedAt, unavailabilityReason) }
     }
 
+    fun getItemByName(name: String): ItemDto {
+        val entity = repository.findByName(name) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+        return entity.run { ItemDto(name, price, this.id, available, createdAt, updatedAt, unavailabilityReason) }
+    }
+
+    fun getItems(): List<ItemDto> {
+        return repository.findAll()
+            .map {
+                ItemDto(
+                    it.name,
+                    it.price,
+                    it.id,
+                    it.available,
+                    it.createdAt,
+                    it.updatedAt,
+                    it.unavailabilityReason
+                )
+            }
+    }
+
 }

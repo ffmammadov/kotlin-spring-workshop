@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface ItemsRepository: CrudRepository<ItemEntity, Int>
+interface ItemsRepository: CrudRepository<ItemEntity, Int> {
+    fun findByName(name: String): ItemEntity?
+}
