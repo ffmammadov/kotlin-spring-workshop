@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  mysql-db:
+    image: "mysql"
+    container_name: mysql-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql-pw
+    ports:
+      - 3306:3306
+    volumes:
+      - "./init-configs/db/init-dbs-and-users.sql:/docker-entrypoint-initdb.d/01_init.sql"
+      - "./init-configs/db/create-item-db-tables.sql:/docker-entrypoint-initdb.d/02_create.sql"
+      - "db-vol:/var/lib/mysql"
+volumes:
+  db-vol:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: "./.db-volume"
