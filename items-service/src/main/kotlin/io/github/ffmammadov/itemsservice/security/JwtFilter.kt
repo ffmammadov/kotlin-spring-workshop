@@ -19,6 +19,7 @@ class JwtFilter(private val authClient: AuthClient) : OncePerRequestFilter() {
             val authzHeader = request.getHeader("Authorization")
             authClient.verifyToken(authzHeader)
         } catch (e: Exception) {
+            logger.error("Shit!", e)
             response.sendError(HttpStatus.UNAUTHORIZED.value(), "Invalid credentials")
             return
         }

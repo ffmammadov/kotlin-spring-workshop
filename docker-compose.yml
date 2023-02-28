@@ -24,7 +24,16 @@ services:
       - "db-vol:/var/lib/mysql"
     networks:
       - kotlin-workshop
-
+  items-service:
+    image: "items"
+    container_name: items-compose
+    ports:
+      - "8086:8086"
+    networks:
+      - kotlin-workshop
+    depends_on:
+      - mysql-db
+      - auth-service
 volumes:
   db-vol:
     driver: local
