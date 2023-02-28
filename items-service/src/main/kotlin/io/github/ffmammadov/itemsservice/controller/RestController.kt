@@ -16,11 +16,6 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/v1/item")
 class RestController(private val service: ItemService) {
 
-    @GetMapping("/health")
-    fun health(): Map<String, String> {
-        return mapOf("response" to "I'm Healthy!")
-    }
-
     @PostMapping("", "/")
     fun saveItem(@RequestBody dto: ItemDto): ItemDto {
         return service.saveItem(dto)
