@@ -1,16 +1,30 @@
 version: "3.9"
 services:
+  auth-service:
+    image: "auth"
+    container_name: "auth-compose"
+    ports:
+      - "8095:8095"
+    hostname: "auth"
+    networks:
+      - kotlin-workshop
+    depends_on:
+      - mysql-db
   mysql-db:
     image: "mysql"
     container_name: mysql-db
+    hostname: "mysql"
     environment:
       - MYSQL_ROOT_PASSWORD=mysql-pw
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
       - "./init-configs/db/init-dbs-and-users.sql:/docker-entrypoint-initdb.d/01_init.sql"
       - "./init-configs/db/create-item-db-tables.sql:/docker-entrypoint-initdb.d/02_create.sql"
       - "db-vol:/var/lib/mysql"
+    networks:
+      - kotlin-workshop
+
 volumes:
   db-vol:
     driver: local
@@ -18,3 +32,6 @@ volumes:
       o: bind
       type: none
       device: "./.db-volume"
+networks:
+  kotlin-workshop:
+    name: "kotlin-workshop-network"
