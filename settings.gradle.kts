@@ -1,1 +1,1 @@
-includeBuild("auth")
+include("items-service", "auth")
