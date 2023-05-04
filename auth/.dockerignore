@@ -1,0 +1,7 @@
+Dockerfile
+Makefile
+.gitignore
+.git/
+.gradle/
+build/
+http-request-templates/
